@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <None Update="testdata" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
