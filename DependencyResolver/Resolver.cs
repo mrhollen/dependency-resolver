@@ -23,8 +23,10 @@ namespace DependencyResolver
             return true;
         }
 
+        // Depth first search for conflicting dependencies
         private bool TestDependencies(List<Package> dependencies)
         {
+            var noConflict = true;
             packagesSeen.AddRange(dependencies);
 
             foreach(var dependency in dependencies)
@@ -34,15 +36,15 @@ namespace DependencyResolver
                     // We've seen a package with a different version number
                     return false;
                 }
-                else
+                else if(dependency.Dependencies.Count > 0)
                 {
                     // Test the dependencies of the dependency
-                    return TestDependencies(dependency.Dependencies);
+                    noConflict = TestDependencies(dependency.Dependencies);
                 }
             }
 
-            // There were no more dependencies so we're good to go
-            return true;
+            // Return the results we've found
+            return noConflict;
         }
     }
 }

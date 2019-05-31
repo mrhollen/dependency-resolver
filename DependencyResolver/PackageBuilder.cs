@@ -21,9 +21,10 @@ namespace DependencyResolver
             return packages;
         }
 
+        // Build up our dependencies recursively
         private void AddDependencies(Package parent, (Package Parent, Package Dependency) dependencyPair)
         {
-            if(dependencyPair.Parent.Name == parent.Name && dependencyPair.Parent.Version == parent.Version)
+            if(dependencyPair.Parent == parent)
             {
                 parent.Dependencies.Add(dependencyPair.Dependency);
             }

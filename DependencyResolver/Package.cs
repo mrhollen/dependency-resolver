@@ -14,5 +14,25 @@ namespace DependencyResolver
 
             Dependencies = new List<Package>();
         }
+
+        public static bool operator ==(Package a, Package b)
+        {
+            return a.Name == b.Name && a.Version == b.Version;
+        }
+
+        public static bool operator !=(Package a, Package b)
+        {
+            return a.Name != b.Name || a.Version != b.Version;
+        }
+
+        public bool Equals(Package b)
+        {
+            if(Name == b.Name && Version == b.Version)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

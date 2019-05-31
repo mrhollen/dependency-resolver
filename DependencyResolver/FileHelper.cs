@@ -35,9 +35,14 @@ namespace DependencyResolver
                     foreach(var dependencyData in dependenciesToInstall)
                     {
                         var data = dependencyData.Split(',');
-                        if(data.Length == 4)
+                        if(data.Length >= 4)
                         {
-                            dependencyFile.Dependencies.Add((Parent: new Package(data[0], data[1]), Dependency: new Package(data[2], data[3])));
+                            var parent = new Package(data[0], data[1]);
+                            
+                            for(int i = 2; i < data.Length - 1; i += 2)
+                            {
+                                dependencyFile.Dependencies.Add((Parent: parent, Dependency: new Package(data[i], data[i+1])));
+                            }
                         }
                     }
                 }
